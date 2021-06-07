@@ -7,7 +7,7 @@ from discord.ext.commands.cooldowns import BucketType
 import asyncio
 import datetime
 
-# os.chdir("C:\\Users\\ericw\\Desktop\\Discord\\bot\\cogs")
+os.chdir("C:\\Users\\ericw\\Desktop\\Discord\\bot\\cogs")
 
 
 class Gamble(commands.Cog):
