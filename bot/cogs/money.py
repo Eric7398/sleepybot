@@ -244,9 +244,9 @@ class Money(commands.Cog):
             member = self.client.get_user(id_)
             name = member.name
             if name == ctx.author.name:
-                name = f"{member.name}  <---  (YOU)"
+                name = f"{member.name}    :point_left:"
             amt = ("{:,}".format(int(amt)))
-            em.add_field(name=f"**{index}. {name}**",
+            em.add_field(name=f"**{index}.** **{name}**",
                          value=f"${amt}",  inline=False)
             if index == x:
                 break
@@ -254,7 +254,7 @@ class Money(commands.Cog):
                 index += 1
         if check == True:
             uramt = ("{:,}".format(int(uramt)))
-            em.add_field(name=f"**{u}. {ctx.author.name}  <---  (YOU)**",
+            em.add_field(name=f"**{u}. {ctx.author.name}    :point_left:**",
                          value=f"${uramt}", inline=False)
         # em.set_thumbnail(url="https://media1.tenor.com/images/74090c93f4ee1dfa68839e154589bfa4/tenor.gif?itemid=8106915")
         em.timestamp = datetime.datetime.utcnow()

@@ -7,7 +7,7 @@ from discord.ext.commands.cooldowns import BucketType
 import asyncio
 import datetime
 
-os.chdir("C:\\Users\\ericw\\Desktop\\Discord\\bot\\cogs")
+os.chdir("C:\\Users\\ericw\\OneDrive\\Desktop\\sleepybot\\bot\\cogs")
 
 
 class Gamble(commands.Cog):
@@ -17,21 +17,21 @@ class Gamble(commands.Cog):
 ####################################################################################
 ####################################################################################
 
-#     @commands.command(brief="| e bj [Amount]", aliases=['bj', '21'])
-#     async def blackjack(self, ctx, amount=None):
-#         await self.openacc(ctx.author)
-#         await ctx.channel.purge(limit=1)
-#         if amount == None:
-#             await ctx.send(f"**{ctx.author.name}**, please enter amount for blackjack!")
-#             return
-#         bal = await self.update(ctx.author)
-#         amount = int(amount)
-#         if amount > bal:
-#             await ctx.send(f"**{ctx.author.name}**, don't have enough money to play blackjack!")
-#             return
-#         if amount < 100:
-#             await ctx.send(f"**{ctx.author.name}**, you need at least **$100** to play!")
-#             return
+    @commands.command(brief="| e bj [Amount]", aliases=['bj', '21'])
+    async def blackjack(self, ctx, amount=None):
+        await self.openacc(ctx.author)
+        await ctx.channel.purge(limit=1)
+        if amount == None:
+            await ctx.send(f"**{ctx.author.name}**, please enter amount for blackjack!")
+            return
+        bal = await self.update(ctx.author)
+        amount = int(amount)
+        if amount > bal:
+            await ctx.send(f"**{ctx.author.name}**, don't have enough money to play blackjack!")
+            return
+        if amount < 100:
+            await ctx.send(f"**{ctx.author.name}**, you need at least **$100** to play!")
+            return
 
 #         deck = []
 #         suits = ["Hearts", "Spades", "Diamonds", "Clubs"]
@@ -43,19 +43,43 @@ class Gamble(commands.Cog):
 #         print(len(deck))
 
 # ####################################################################################
-#         em = discord.Embed(
-#             title="**\u2664 \u2667 BLACKJACK \u2662 \u2661**", description=f"**Enjoy your game {ctx.author.name}!**", colour=discord.Colour.gold())
-#         em.add_field(name="- **type s to start**\n- **type p to join**",
-#                      value=f"Current Bet: **${amount}**", inline=False)
-#         await ctx.send(embed=em)
+        em = discord.Embed(
+            title="**\u2664 \u2667 \u2662 \u2661 BLACKJACK \u2664 \u2667 \u2662 \u2661**", description=f"**Enjoy your game {ctx.author.name}!**", colour=discord.Colour.gold())
+        em.add_field(name="- **type s to start**\n- **type p to join**",
+                     value=f"Current Bet: **${amount}**", inline=False)
+        em.timestamp = datetime.datetime.utcnow()
+        await ctx.send(embed=em)
+        await ctx.send("**CURRENTLY UNDER CONSTRUCTION!**")
 ####################################################################################
 
+    @commands.command(brief="| e race [Amount]")
+    async def race(self, ctx, amount=None):
+        await self.openacc(ctx.author)
+        await ctx.channel.purge(limit=1)
+        if amount == None:
+            await ctx.send(f"**{ctx.author.name}**, please enter amount for the race!")
+            return
+        bal = await self.update(ctx.author)
+        amount = int(amount)
+        if amount > bal:
+            await ctx.send(f"**{ctx.author.name}**, don't have enough money to bet the race!")
+            return
+        if amount < 100:
+            await ctx.send(f"**{ctx.author.name}**, you need at least **$500** to bet!")
+            return
+
+        em = discord.Embed(
+            title="**<:raceflag:852005033381593119>  <:raceflag:852005033381593119>  <:raceflag:852005033381593119> GRAND RACE <:rflag:852005353469902848>  <:rflag:852005353469902848>  <:rflag:852005353469902848>**", description=f"\u200b   \u200b   \u200b   \u200b**WELCOME TO THE RACE {ctx.author.name.upper()}!!**", colour=discord.Colour.gold())
+        em.add_field(name="- **react below to choose your car!**",
+                     value=f"Current Bet Entry: **${amount}**", inline=False)
+        em.timestamp = datetime.datetime.utcnow()
+        await ctx.send(embed=em)
+        await ctx.send("**CURRENTLY UNDER CONSTRUCTION!**")
 
 ####################################################################################
 ####################################################################################
 ####################################################################################
 ####################################################################################
-
 
     @commands.command(brief="| e crash [Amount]")
     async def crash(self, ctx, amount=None):
@@ -94,9 +118,16 @@ class Gamble(commands.Cog):
 
         crash = random.randrange(1, 100)
         if crash == 100:
-            c = random.randrange(40, 200)
+
+            c = random.randrange(1000, 2000)
+        elif crash >= 99:
+            c = random.randrange(500, 1000)
         elif crash >= 98:
-            c = random.randrange(30, 40)
+            c = random.randrange(250, 500)
+        elif crash >= 97:
+            c = random.randrange(100, 250)
+        elif crash >= 96:
+            c = random.randrange(50, 100)
         elif crash >= 95:
             c = random.randrange(25, 30)
         elif crash >= 85:

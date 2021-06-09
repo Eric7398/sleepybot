@@ -2,7 +2,7 @@ import os
 import discord
 from discord.ext import commands
 import requests
-from datetime import datetime
+import datetime
 
 
 class Essential(commands.Cog):
@@ -11,7 +11,6 @@ class Essential(commands.Cog):
 
 
 #   commands.Cog.listener is an event listener
-
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -24,6 +23,18 @@ class Essential(commands.Cog):
 
 #   commands.command is a client command function
 
+    @commands.command(brief='| e info (Bot Information)')
+    async def info(self, ctx):
+        await ctx.channel.purge(limit=1)
+        em = discord.Embed(
+            title=f"**Hello, {ctx.author.name}!\nMy name is Sleepy!**", description="Nice to meet you!", colour=discord.Colour.blue())
+        em.add_field(name='My commands are listed under "e help"',
+                     value="- Admin commands\n- Gamble commands\n- API for jokes and quotes\n- Many more soon to come...")
+        em.set_thumbnail(
+            url="https://steamuserimages-a.akamaihd.net/ugc/866229193898295529/A8C586FFED42AD929CF127EA379C00691EF9A614/")
+        em.set_footer(
+            text=f"I'm currently in {len(self.client.guilds)} servers!\nCreated by Sensei#7398 on May 23, 2021")
+        await ctx.send(embed=em)
 
     @commands.command(brief='| e ping (Checks Server Latency)')
     async def ping(self, ctx):
