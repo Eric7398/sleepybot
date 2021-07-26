@@ -17,7 +17,7 @@ class Gamble(commands.Cog):
 ####################################################################################
 ####################################################################################
 
-    @commands.command(brief="| e bj [Amount]", aliases=['bj', '21'])
+    @commands.command(brief="| e bj [Amount] (WORK IN PROGRESS)", aliases=['bj', '21'])
     async def blackjack(self, ctx, amount=None):
         await self.openacc(ctx.author)
         await ctx.channel.purge(limit=1)
@@ -40,9 +40,8 @@ class Gamble(commands.Cog):
 #             for card in cards:
 #                 deck.append([suit, card])
 #         print(deck)
-#         print(len(deck))
 
-# ####################################################################################
+####################################################################################
         em = discord.Embed(
             title="**\u2664 \u2667 \u2662 \u2661 BLACKJACK \u2664 \u2667 \u2662 \u2661**", description=f"**Enjoy your game {ctx.author.name}!**", colour=discord.Colour.gold())
         em.add_field(name="- **type s to start**\n- **type p to join**",
@@ -51,8 +50,11 @@ class Gamble(commands.Cog):
         await ctx.send(embed=em)
         await ctx.send("**CURRENTLY UNDER CONSTRUCTION!**")
 ####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
 
-    @commands.command(brief="| e race [Amount]")
+    @commands.command(brief="| e race [Amount] (WORK IN PROGRESS)")
     async def race(self, ctx, amount=None):
         await self.openacc(ctx.author)
         await ctx.channel.purge(limit=1)
@@ -64,16 +66,33 @@ class Gamble(commands.Cog):
         if amount > bal:
             await ctx.send(f"**{ctx.author.name}**, don't have enough money to bet the race!")
             return
-        if amount < 100:
+        if amount < 500:
             await ctx.send(f"**{ctx.author.name}**, you need at least **$500** to bet!")
             return
 
         em = discord.Embed(
-            title="**<:raceflag:852005033381593119>  <:raceflag:852005033381593119>  <:raceflag:852005033381593119> GRAND RACE <:rflag:852005353469902848>  <:rflag:852005353469902848>  <:rflag:852005353469902848>**", description=f"\u200b   \u200b   \u200b   \u200b**WELCOME TO THE RACE {ctx.author.name.upper()}!!**", colour=discord.Colour.gold())
+            title="**<:raceflag:852005033381593119>  <:raceflag:852005033381593119>  <:raceflag:852005033381593119>  GRAND RACE  <:rflag:852005353469902848>  <:rflag:852005353469902848>  <:rflag:852005353469902848>**", description=f"\u200b   \u200b   \u200b   \u200b**WELCOME TO THE RACE {ctx.author.name.upper()}!!**", colour=discord.Colour.gold())
         em.add_field(name="- **react below to choose your car!**",
                      value=f"Current Bet Entry: **${amount}**", inline=False)
         em.timestamp = datetime.datetime.utcnow()
-        await ctx.send(embed=em)
+        raceem = await ctx.send(embed=em)
+        await raceem.add_reaction('🚗')
+        await raceem.add_reaction('🏎️')
+        await raceem.add_reaction('🚓')
+        await raceem.add_reaction('🚕')
+        await raceem.add_reaction('🚙')
+
+        def check(reaction, user):
+            return str(reaction.emoji) == '🚗' or str(reaction.emoji) == '🏎️' or str(reaction.emoji) == '🚓' or str(reaction.emoji) == '🚕' or str(reaction.emoji) == '🚙' and user != self.client.user
+        play = False
+        try:
+            reaction, user = await self.client.wait_for('reaction_add', timeout=60, check=check)
+
+            await ctx.send(f"This is a test {user.name}!")
+        except asyncio.TimeoutError:
+            oot = discord.Embed(
+                title=f"**You failed to select a car {ctx.author.name}!**", description="**Please try again...")
+            await raceem.edit("You ran out of time!")
         await ctx.send("**CURRENTLY UNDER CONSTRUCTION!**")
 
 ####################################################################################
@@ -111,14 +130,13 @@ class Gamble(commands.Cog):
         crash_embed.add_field(
             name="**Gain**", value=f"${stramount}", inline=True)
         crash_embed.add_field(
-            name="**===============**", value="\u200b  type **s** to stop", inline=False)
+            name="**===============**", value="- type **s** to stop", inline=False)
         crash_embed.timestamp = datetime.datetime.utcnow()
 
         precrash = await ctx.send(embed=crash_embed)
 
         crash = random.randrange(1, 100)
         if crash == 100:
-
             c = random.randrange(1000, 2000)
         elif crash >= 99:
             c = random.randrange(500, 1000)
@@ -168,7 +186,7 @@ class Gamble(commands.Cog):
                 newc_embed.add_field(
                     name="**Gain**", value=f"${uptoamt}", inline=True)
                 newc_embed.add_field(
-                    name="**===============**", value="\u200b  type **s** to stop", inline=False)
+                    name="**===============**", value="- type **s** to stop", inline=False)
                 newc_embed.timestamp = datetime.datetime.utcnow()
 
                 await precrash.edit(embed=newc_embed)
@@ -224,7 +242,6 @@ class Gamble(commands.Cog):
 ####################################################################################
 ####################################################################################
 
-
     @ commands.command(brief='| e slot [Amount]', aliases=['slots'])
     async def slot(self, ctx, amount=None):
         await self.openacc(ctx.author)
@@ -246,7 +263,7 @@ class Gamble(commands.Cog):
 
         for i in range(3):
             a = random.choice(["💯", "❄️", "💎",
-                               "💵", "🥇", "🏆"])
+                               "💵", "🥇", "🏆", "🌟"])
             final.append(a)
 
         if final[0] == "💯" and final[1] == "💯" and final[2] == "💯":
